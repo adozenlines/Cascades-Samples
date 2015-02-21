@@ -1,4 +1,4 @@
-/* Copyright (c) 2012 BlackBerry Limited.
+/* Copyright (c) 2012, 2013, 2014 BlackBerry Limited.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,7 @@
 
 using namespace bb::cascades;
 
-SpeedWriterApp::SpeedWriterApp()
+SpeedWriterApp::SpeedWriterApp(QObject *parent) : QObject(parent)
 {
     // Registration of the CustomControl which will show the current speed and
     // the WordChecker object that is used for checking if the entered text is
@@ -31,7 +31,7 @@ SpeedWriterApp::SpeedWriterApp()
     qmlRegisterType<WordChecker>("com.speedwriter", 1, 0, "WordChecker");
 
     // Create a QMLDocument and load it, using build patterns
-    QmlDocument *qml = QmlDocument::create("asset:///speedwriter.qml");
+    QmlDocument *qml = QmlDocument::create("asset:///speedwriter.qml").parent(this);
 
     if (!qml->hasErrors()) {
         // Create the application Page from QML.

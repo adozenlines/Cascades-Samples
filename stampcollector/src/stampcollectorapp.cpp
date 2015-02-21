@@ -1,4 +1,4 @@
-/* Copyright (c) 2012 BlackBerry Limited.
+/* Copyright (c) 2012, 2013, 2014 BlackBerry Limited.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,13 +24,12 @@
 
 using namespace bb::data;
 
-StampCollectorApp::StampCollectorApp()
+StampCollectorApp::StampCollectorApp(QObject *parent) : QObject(parent)
 {
     // The entire UI is a drill down list, which means that when an item is selected
     // a navigation takes place to a Content View with a large stamp image and a descriptive text.
     // The main.qml contain the navigation pane and the first page (the list).
-    QmlDocument *qml = QmlDocument::create("asset:///main.qml");
-    qml->setParent(this);
+    QmlDocument *qml = QmlDocument::create("asset:///main.qml").parent(this);
     NavigationPane *nav = qml->createRootObject<NavigationPane>();
 
     // Get the ListView from QML and setup a DataModel from the JSON data.
@@ -44,7 +43,7 @@ StampCollectorApp::StampCollectorApp()
 
 void StampCollectorApp::setUpStampListModel(ListView *stampList)
 {
-    // Create a new GroupDataModel; the GroupDataModel is a helper class that ListView uses for data handling. 
+    // Create a new GroupDataModel; the GroupDataModel is a helper class that ListView uses for data handling.
     // It uses in-memory storage so we can populate data.
     // We load the GroupDataModel with help from the JsonDataAcces function, load().
     JsonDataAccess jda;

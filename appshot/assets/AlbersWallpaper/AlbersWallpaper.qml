@@ -1,4 +1,4 @@
-/* Copyright (c) 2013 BlackBerry Limited.
+/* Copyright (c) 2013, 2014 BlackBerry Limited.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,39 +12,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import bb.cascades 1.2
+import bb.cascades 1.3
 
 // A Container that contain a grid of colored boxes in a semi-random pattern,
 // inspired by the legendary Bauhaus artist Josef Albers "Homage to the Square". 
 Container {
 	horizontalAlignment: HorizontalAlignment.Fill
-	
-	layout: DockLayout {
+    verticalAlignment: VerticalAlignment.Fill
+    background: Color.create("#d6d5d0")
+
+    layout: DockLayout {
     }
-    
-    ImageView {
-        imageSource: "asset:///images/background.png"
-        horizontalAlignment: HorizontalAlignment.Fill
-        verticalAlignment: VerticalAlignment.Fill
-    }
-    
+
     Container {
         verticalAlignment: VerticalAlignment.Center
         horizontalAlignment: HorizontalAlignment.Center
-        rightPadding: 20
-        bottomPadding: 20
+        rightPadding: ui.du(2)
+        bottomPadding: ui.du(2)
                 
         AlbersGrid {
             id: alberGrid
         }
     }
-    
-    ImageView {
-        imageSource: "asset:///images/grit.png"
-        horizontalAlignment: HorizontalAlignment.Fill
-        verticalAlignment: VerticalAlignment.Fill
-    }
-    
+
     onTouch: {
         if(event.touchType == TouchType.Down){
             setColorsAndPosition();

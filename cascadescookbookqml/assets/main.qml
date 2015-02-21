@@ -1,4 +1,4 @@
-/* Copyright (c) 2012 BlackBerry Limited.
+/* Copyright (c) 2012, 2013, 2014 BlackBerry Limited.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,8 +12,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import bb.cascades 1.2
+import bb.cascades 1.3
 import "Common"
+import "cover"
 
 NavigationPane {
     id: nav
@@ -39,10 +40,11 @@ NavigationPane {
 
             // A Container for the list is padded at the top and bottom to make room for decorations.
             Container {
-                topPadding: 15
+                topPadding: ui.px(15) 
                 bottomPadding: topPadding
                 ListView {
                     id: recipeList
+                    scrollRole: ScrollRole.Main
                     dataModel: XmlDataModel {
                         source: "models/recipemodel.xml"
                     }
@@ -65,10 +67,11 @@ NavigationPane {
                         // Push the new Page.
                         nav.push(page);
                     }
-                } // ListView
-            } // Container
-        } // Container
-    } // Page
+                }
+            }
+        }
+    }
+    
     attachedObjects: [
         ComponentDefinition {
             id: recipePage
@@ -77,23 +80,60 @@ NavigationPane {
         ComponentDefinition {
             id: cookbookMenu
             source: "CookbookMenu.qml"
-        }
+        },
+        MultiCover {
+            id: multi
+            SceneCover {
+                MultiCover.level: CoverDetailLevel.High
+                // Check AppCover.qml
+                content: AppCover {
+                }
+            }
+            SceneCover {
+                MultiCover.level: CoverDetailLevel.Medium
+                content: Container {
+                    layout: DockLayout {}
+                    background: Color.create("#060606")
+                    
+                    ImageView {
+                        horizontalAlignment: HorizontalAlignment.Center
+                        verticalAlignment: VerticalAlignment.Center
+                        maxHeight: ui.px(150) 
+                        imageSource: "asset:///images/active_frames_pepper.png"
+                        scalingMethod: ScalingMethod.AspectFit
+                    }
+                    
+                    AppCoverHeader {
+                        title: "QML"
+                        backgroundOpacity: 0.5
+                        headerColor: "#36412d"
+                    }  
+            
+                }
+            }
+        }  
     ]
+    
     onCreationCompleted: {
         // We want to only display in portrait-mode in this view.
         OrientationSupport.supportedDisplayOrientation = SupportedDisplayOrientation.DisplayPortrait;
         
         // Create the app menu for the cookbook.
         menu = cookbookMenu.createObject();
+        
+        // Set the scene cover for the app.
+        Application.setCover(multi);
     }
+    
     onTopChanged: {
         if (page == recipeListPage) {
             // We want to only display in portrait-mode in this view, so if it has been changed, let's reset it.
             OrientationSupport.supportedDisplayOrientation = SupportedDisplayOrientation.DisplayPortrait;
         }
     }
+    
     onPopTransitionEnded: {
         // Transition is done destroy the Page to free up memory.
         page.destroy();
     }
-}// NavigationPane
+}

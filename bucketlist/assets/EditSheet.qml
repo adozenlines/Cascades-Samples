@@ -1,4 +1,4 @@
-/* Copyright (c) 2012 BlackBerry Limited.
+/* Copyright (c) 2012, 2013, 2014 BlackBerry Limited.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import bb.cascades 1.2
+import bb.cascades 1.3
 
 // This QML sheet is used for editing and adding new items to the Bucket List application.
 
@@ -52,7 +52,7 @@ Sheet {
         }
         Container {
             id: editPane
-            property real margins: 40
+            property real margins: ui.du(3) // 3 is the UI default for a large padding
             background: Color.create("#f8f8f8")
             topPadding: editPane.margins
             leftPadding: editPane.margins
@@ -73,8 +73,8 @@ Sheet {
                     hintText: qsTr("New item on the bucket list") + Retranslate.onLanguageChanged
                     topMargin: editPane.margins
                     bottomMargin: topMargin
-                    preferredHeight: 450
-                    maxHeight: 450
+                    preferredHeight: ui.du(45)
+                    maxHeight: ui.du(45)
                     horizontalAlignment: HorizontalAlignment.Fill
                     
                     textStyle {

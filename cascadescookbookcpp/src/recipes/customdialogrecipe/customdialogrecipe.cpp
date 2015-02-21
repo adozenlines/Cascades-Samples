@@ -1,4 +1,4 @@
-/* Copyright (c) 2012 BlackBerry Limited.
+/* Copyright (c) 2012, 2013, 2014 BlackBerry Limited.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -58,7 +58,6 @@ CustomDialogRecipe::CustomDialogRecipe(Container * parent) :
     Q_ASSERT(connectResult);
 
     ImageView *candle = ImageView::create("asset:///images/customdialog/background.png");
-    candle->setScalingMethod(ScalingMethod::AspectFit);
 
     // The CustomDialog is added as an attached object since it is visible in the
     // UI from the start. Since a dialog is often used in many different places in an application,

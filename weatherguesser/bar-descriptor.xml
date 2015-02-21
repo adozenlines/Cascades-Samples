@@ -35,7 +35,6 @@
 
     <initialWindow>
         <systemChrome>none</systemChrome>
-        <transparent>false</transparent>
     </initialWindow>
 
     <!--  The category where the application appears. Either core.games or core.media. -->
@@ -45,6 +44,7 @@
        <image>splash_screen_720.png</image>
        <image>splash_screen_720x1280.png</image>
        <image>splash.png</image>
+       <image>splash_screen_1440x1440.png</image>
     </splashScreens>
     
     <icon>
@@ -73,7 +73,8 @@
     <!-- Application assets -->
     <asset path="assets">assets</asset>
 
-    <env var="CASCADES_THEME" value="bright"/>
+	<!-- Bright theme with custom base and primary color -->
+    <env var="CASCADES_THEME" value="bright?primaryColor=0x16B1AF&amp;primaryBase=0x1bd9d7"/>
 
     <!-- Locale support -->
     <asset path="translations" dest="qm">
@@ -84,6 +85,7 @@
     <asset path="splash_screen_720.png">splash_screen_720.png</asset>
     <asset path="splash_screen_720x1280.png">splash_screen_720x1280.png</asset>
     <asset path="splash.png">splash.png</asset>
+    <asset path="splash_screen_1440x1440.png">splash_screen_1440x1440.png</asset>
     
     <!-- Request permission to execute native code.  Required for native applications. -->
     <permission system="true">run_native</permission>

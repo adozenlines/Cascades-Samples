@@ -1,4 +1,4 @@
-/* Copyright (c) 2013 BlackBerry Limited.
+/* Copyright (c) 2013, 2014 BlackBerry Limited.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +23,8 @@
 #include <bb/cascades/Application>
 #include <bb/cascades/QmlDocument>
 #include <bb/cascades/SceneCover>
+#include <bb/cascades/ThemeSupport>
+#include <bb/cascades/VisualStyle>
 
 #include <bb/cascades/pickers/ContactPicker>
 #include <bb/cascades/pickers/ContactSelectionMode>
@@ -31,8 +33,7 @@
 using namespace bb::cascades;
 using namespace bb::cascades::pickers;
 
-RundGangApp::RundGangApp(bb::cascades::Application *app) :
-        QObject(app)
+RundGangApp::RundGangApp(QObject *parent) : QObject(parent)
 {
     // Localization: Make the initial call to set up the initial application language and
     // connect to the LocaleHandlers systemLanguaged change signal, this will
@@ -67,11 +68,14 @@ RundGangApp::RundGangApp(bb::cascades::Application *app) :
     // Make the application object accessible from QML.
     qml->setContextProperty("_app", this);
 
+    // Set the stored visual style of the application.
+    Application::instance()->themeSupport()->setVisualStyle(globalSettings->visualStyle());
+
     // Create root object for the UI.
     AbstractPane *root = qml->createRootObject<AbstractPane>();
 
     // Set created root object as the application scene.
-    app->setScene(root);
+    Application::instance()->setScene(root);
 
     // Add an application cover, shown when the app is running in minimized mode.
     addApplicationCover();
